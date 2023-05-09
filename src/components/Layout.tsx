@@ -12,11 +12,8 @@ export default function Layout({ children }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="apple-touch-icon" href="/icon.png" />
-        <meta name="theme-color" content="#fff" />
+        <meta name="theme-color" content="#0A1128" />
       </Head>
-      <nav>
-        <Navigation />
-      </nav>
       <main>{children}</main>
       <style jsx>
         {`
@@ -29,6 +26,8 @@ export default function Layout({ children }: Props) {
           main {
             display: flex;
             min-height: 100%;
+            margin: 0 auto;
+            padding: 4rem 0;
           }
           @media (min-width: 769px) {
             .root {

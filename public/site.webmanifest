@@ -3,12 +3,12 @@
   "name": "",
   "icons": [
     {
-      "src": "icon.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "",
+      "type": "",
+      "sizes": ""
     }
   ],
-  "start_url": "/?utm_source=homescreen",
-  "background_color": "#000000",
-  "theme_color": "#000000"
+  "start_url": "",
+  "background_color": "#0A1128",
+  "theme_color": "#0A1128"
 }
