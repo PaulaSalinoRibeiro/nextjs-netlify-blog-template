@@ -1,0 +1,4 @@
+.container > a {
+  display: inline-block;
+  margin: 8px 12px;
+}

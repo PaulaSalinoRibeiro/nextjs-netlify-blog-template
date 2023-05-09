@@ -11,13 +11,13 @@
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
     <script>
       CMS.registerPreviewStyle(
-        "https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap"
+        "https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@100;400;900&family=Work+Sans:wght@400;500&display=swap"
       );
       CMS.registerPreviewStyle("/styles/content.module.css");
-      var PostPreview = createClass({
+      let PostPreview = createClass({
         render: function () {
-          var entry = this.props.entry;
-          var date = entry.getIn(["data", "date"]);
+          let entry = this.props.entry;
+          let date = entry.getIn(["data", "date"]);
           return h(
             "div",
             { className: "content" },

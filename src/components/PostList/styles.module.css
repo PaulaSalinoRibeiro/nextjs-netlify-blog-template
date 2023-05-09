@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+.posts > ul {
+  list-style: none;
+}
+
+.post li {
+  padding: 12px;
+}

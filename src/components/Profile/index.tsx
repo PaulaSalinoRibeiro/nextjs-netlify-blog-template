@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { SocialList } from '../SocialList'
 
 import styles from './styles.module.css'
 
@@ -22,7 +23,7 @@ export default function Profile() {
         Entusiasta em aprender e compartilhar conhecimento sobre o mundo da tecnologia
       </p>
       <div>
-        {/* Contacts */}
+        <SocialList />
       </div>
     </div>
   )
