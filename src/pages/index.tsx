@@ -23,7 +23,6 @@ export default function Home( { posts }: Props ) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = listPostContent(1, config.posts_per_page);
-
   return {
     props: {
       posts,
