@@ -8,17 +8,14 @@ export default function PostLayout({
   title,
   children,
 }: Props) {
-  
   return (
-    <>
-      <div className={styles.container}>
-        <article>
-          <header>
-            <h1>{title}</h1>
-          </header>
-          <div className={styles.content}>{children}</div>
-        </article>
-      </div>
-    </>
+    <div className={styles.container}>
+      <article>
+        <header>
+          <h1>{title}</h1>
+        </header>
+        <div className={styles.content}>{children}</div>
+      </article>
+    </div>
   );
 }

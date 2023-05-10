@@ -66,11 +66,11 @@ export function fetchPostContent(): PostContent[] {
   return postCache;
 }
 
-export function countPosts(tag?: string): number {
-  return fetchPostContent().filter(
-    (it) => !tag || (it.tags && it.tags.includes(tag))
-  ).length;
-}
+// export function countPosts(tag?: string): number {
+//   return fetchPostContent().filter(
+//     (it) => !tag || (it.tags && it.tags.includes(tag))
+//   ).length;
+// }
 
 export function listPostContent(
   page: number,
