@@ -1,4 +1,4 @@
-import styles from "../../public/styles/content.module.css";
+import styles from "./styles.module.css"
 
 type Props = {
   title: string;
@@ -11,7 +11,7 @@ export default function PostLayout({
   
   return (
     <>
-      <div className={"container"}>
+      <div className={styles.container}>
         <article>
           <header>
             <h1>{title}</h1>

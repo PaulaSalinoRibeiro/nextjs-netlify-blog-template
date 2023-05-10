@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { PostContent } from "../../lib/posts";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 type Props = {
   post: PostContent;

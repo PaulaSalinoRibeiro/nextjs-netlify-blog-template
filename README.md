@@ -1,103 +1,176 @@
-![Next.js blogging template for Netlify](https://repository-images.githubusercontent.com/284910441/d8efc300-e2ae-11ea-9596-b01e3844e39d)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c6f44d34-0570-4ca0-9d3d-cabdaa2b3afb/deploy-status)](https://app.netlify.com/sites/nextjs-netlify-blog-template/deploys)
-[![MADE BY Next.js](https://img.shields.io/badge/MADE%20BY%20Next.js-000000.svg?style=flat&logo=Next.js&labelColor=000)](https://nextjs.org/)
 
-Next.js blogging template for Netlify is a boilerplate for building blogs with only Netlify stacks.
+---
+slug: "markdown-syntax"
+title: "Markdown Syntax Guide"
+date: "9 de Maio de 2023"
+subtitle: "markdown-syntax"
+tags:
+  - style
+  - markdown
+---
 
-There are some boilerplate or tutorials for the combination of Next.js and Netlify on GitHub. These resources have documentation and good tutorial to get started Next.js and Netlify quickly, but they are too simple to build blogs with standard features like tagging.
+This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in MDX.
 
-Next.js blogging template for Netlify has already implemented these standard features for building blogs with only using Next.js and Netlify stacks.
+## Headings
 
-## Demo
+The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
 
-Deploy on your environment by clicking here:
+# H1
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/wutali/nextjs-netlify-blog-template&stack=cms)
+## H2
 
-Or access the following demo site:
+### H3
 
-[Next.js blog template for Netlify](https://nextjs-netlify-blog-template.netlify.app/)
+#### H4
 
-## Features
+##### H5
 
-- **Tagging**: organizes content by tags
-- **Author**: displays author names who write a post
-- **Pagination**: limits the number of posts per page
-- **CMS**: built with CMS to allow editors modifying content with the quickest way
-- **SEO optimized**: built-in metadata like JSON-LD
-- **Shortcode**: extends content writing with React component like WordPress shortcodes
+###### H6
 
-## Dependencies
+## Paragraph
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [Next.js](https://nextjs.org/)
-- [Netlify](https://www.netlify.com/)
-- [MDX](https://mdxjs.com/)
+Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
 
-## Getting started
+Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
 
-To create your blog using the template, open your terminal, `cd` into the directory you'd like to create the app in,
-and run the following command:
+## Images
 
+![Sample Image](/images/600x300.png)
+
+## Blockquotes
+
+The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+
+#### Blockquote without attribution
+
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
+> **Note** that you can use _Markdown syntax_ within a blockquote.
+
+#### Blockquote with attribution
+
+> Simplicity is the ultimate sophistication.
+>
+> <cite>Leonardo da Vinci</cite>
+
+## Tables
+
+Tables aren't part of the core Markdown spec, but Hugo supports supports them out-of-the-box.
+
+| Name  | Age |
+| ----- | --- |
+| Bob   | 27  |
+| Alice | 23  |
+
+#### Inline Markdown within tables
+
+<div style={{"overflowX": "auto"}}>
+
+| Inline&nbsp;&nbsp;&nbsp; | Markdown&nbsp;&nbsp;&nbsp; | In&nbsp;&nbsp;&nbsp;                | Table  |
+| ------------------------ | -------------------------- | ----------------------------------- | ------ |
+| _italics_                | **bold**                   | ~~strikethrough~~&nbsp;&nbsp;&nbsp; | `code` |
+
+</div>
+
+## Code Blocks
+
+#### Code block with backticks
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>Test</p>
+  </body>
+</html>
 ```
-npx create-next-app your-blog --example "https://github.com/wutali/nextjs-netlify-blog-template"
+
+#### Code block indented with four spaces
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Example HTML5 Document</title>
+    </head>
+    <body>
+      <p>Test</p>
+    </body>
+    </html>
+
+#### Code block with Hugo's internal highlight shortcode
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>Test</p>
+  </body>
+</html>
 ```
 
-After that, set up your project as following the Netlify blog:
+#### Wide code block
 
-[A Step-by-Step Guide: Deploying on Netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/)
-
-## Customization
-
-This template is just a template and a boilerplate in which users can customize anything after the project was cloned and started.
-The following instructions introduce common customization points like adding new metadata or applying a new design theme.
-
-### Styling pages by a customized theme
-
-All source codes related to the blog are under [components](/src/components) and [pages](/src/pages) directory.
-You can modify it freely if you want to apply your design theme.
-All components use [styled-jsx](https://github.com/vercel/styled-jsx) and [css-modules](https://github.com/css-modules/css-modules) to define their styles, but you can choose any styling libraries for designing your theme.
-
-The directory tree containing the blog source code are described below:
-
-```
-meta: yaml files defining metadata like authors or tags
-public: images, favicons and other static assets
-src
-├── assets: other assets using inside of components
-├── components: pieces of components consisting of pages
-├── content: mdx files for each post page
-├── lib: project libraries like data fetching or pagination
-└── pages: page components managing by Next.js
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+  </body>
+</html>
 ```
 
-### Organizing content by categories
+## List Types
 
-The category metadata that associates with content have the same relationship with the authors' one.
-Then reference these implementations for adding new metadata:
+#### Ordered List
 
-- [public/admin/config.yml](/public/admin/config.yml#L51): author metadata definition for Netlify CMS
-- [src/lib/authors.tsx](/src/lib/authors.ts): fetches metadata and defines utility functions for components
-- [meta/authors.yml](/src/meta/authors.yml): author content managed by Netlify CMS
-- [src/components/PostLayout.tsx](/src/components/PostLayout.tsx): displays author content for each page
+1. First item
+2. Second item
+3. Third item
 
-You understood they have four steps to add the category metadata on your project after you read the above source codes:
+#### Unordered List
 
-1. Define the category metadata on the above Netlify config file
-2. Create an empty file named with `categories.yml` under [meta](/src/meta/) directory
-3. Create a new module for fetching category metadata
-4. Display the category metadata on [src/components/PostLayout.tsx](/src/components/PostLayout.tsx#L75) or other components you want
+- List item
+- Another item
+- And another item
 
-It is all you have to do. After that, you can access Netlify CMS and create new categories at any time.
+#### Nested list
 
-### Locale settings for Netlify CMS
+- Item
+  1. First Sub-item
+  2. Second Sub-item
 
-Modify [config.yml](/public/admin/config.yml) and
-[index.html](/public/admin/index.html) under [public/admin](/public/admin/) directory
-as following instructions:
+## Other Elements — abbr, sub, sup, kbd, mark
 
-[Netlify CMS - Configuration Options #Locale](https://www.netlifycms.org/docs/configuration-options/#locale)
+<p>
+  <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
+</p>
+
+H<sub>2</sub>O
+
+X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
+
+Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
+
+Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+
+
 
 ## References
 
@@ -108,6 +181,4 @@ as following instructions:
 - [Building Blog with NextJS and Netlify CMS](https://dev.to/mefaba/building-blog-with-nextjs-and-netlify-cms-fom)
 - [Unicons](https://github.com/Iconscout/unicons)
 
-## License
 
-MIT

@@ -1,16 +1,17 @@
-import Image from 'next/image'
 import { SocialList } from '../SocialList'
 
 import styles from './styles.module.css'
 
-export default function Profile() {
+export type Props = {
+  path: string;
+}
+
+export default function Profile({path}: Props) {
   return (
     <div className={styles.container}>
-      <Image
-        src="/images/profile.png"
+      <img
+        src={path}
         alt='imagem de perfil'
-        width={118}
-        height={118}
         className={styles.imageProfile}
       />
       <p className={styles.title}>

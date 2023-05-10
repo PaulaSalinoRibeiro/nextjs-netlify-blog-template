@@ -6,12 +6,8 @@ import matter from "gray-matter";
 import { fetchPostContent } from "../../lib/posts";
 import fs from "fs";
 import yaml from "js-yaml";
-import { parseISO } from 'date-fns';
 import PostLayout from "../../components/PostLayout";
-
-import InstagramEmbed from "react-instagram-embed";
-import YouTube from "react-youtube";
-import { TwitterTweetEmbed } from "react-twitter-embed";
+import Profile from "../../components/Profile";
 
 export type Props = {
   title: string;
@@ -21,7 +17,6 @@ export type Props = {
   source: MdxRemote.Source;
 };
 
-const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };
 const slugToPostContent = (postContents => {
   let hash = {}
   postContents.forEach(it => hash[it.slug] = it)
@@ -32,13 +27,16 @@ export default function Post({
   title,
   source,
 }: Props) {
-  const content = hydrate(source, { components })
+  const content = hydrate(source)
   return (
-    <PostLayout
-      title={title}
-    >
-      {content}
-    </PostLayout>
+    <div className="container">
+      <Profile path="/images/profile.png"/>
+      <PostLayout
+        title={title}
+      >
+        {content}
+      </PostLayout>
+    </div>
   )
 }
 
@@ -56,7 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { content, data } = matter(source, {
     engines: { yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object }
   });
-  const mdxSource = await renderToString(content, { components, scope: data });
+  const mdxSource = await renderToString(content, { scope: data });
   return {
     props: {
       title: data.title,

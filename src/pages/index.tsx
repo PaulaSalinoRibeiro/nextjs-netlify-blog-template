@@ -4,8 +4,6 @@ import config from "../lib/config";
 import PostList from '../components/PostList';
 import Profile from "../components/Profile";
 
-import style from "../../public/styles/Home.module.css";
-
 import { listPostContent, PostContent } from "../lib/posts";
 
 type Props = {
@@ -14,8 +12,8 @@ type Props = {
 
 export default function Home( { posts }: Props ) {
   return (
-    <div className={style.container}>
-      <Profile />
+    <div className="container">
+      <Profile path="/images/profile.png"/>
       <PostList posts={posts} />
     </div>
   );
