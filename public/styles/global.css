@@ -3,6 +3,8 @@
 :root {
   --primary: #0A1128;
   --secondary: #D4ADFC;
+  --text-title: 'Montserrat';
+  --text-subtitle: 'Work Sans';
 }
 
 * {
@@ -13,7 +15,7 @@
 
 html,
 body {
-  font-family: 'Work Sans';
+  font-family: var(--text-subtitle);
   background-color: var(--primary);
   color: #fff;
   font-weight: 200;

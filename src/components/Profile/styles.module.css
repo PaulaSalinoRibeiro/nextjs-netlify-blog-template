@@ -13,21 +13,21 @@
 .title {
   font-size: 24px;
   font-weight: bold;
-  font-family: 'Montserrat';
+  font-family: var(--text-title);
   margin-bottom: 8px;
 }
 
 .subtitle {
   font-size: 16px;
   font-weight: bold;
-  font-family: 'Montserrat';
+  font-family: var(--text-title);
   margin-bottom: 32px;
 }
 
 .description {
   font-size: 16px;
   font-weight: regular;
-  font-family: 'Work Sans';
+  font-family: --var(--text-subtitle);
   width: 200px
 }
 
