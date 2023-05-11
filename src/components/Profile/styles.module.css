@@ -4,6 +4,7 @@
 }
 
 .imageProfile {
+  border: 1px solid var(--secondary);
   border-radius: 50%;
   width: 118px;
   height: 118px;
@@ -43,5 +44,15 @@
 
   .imageProfile{
     margin: 0 auto;
+  }
+  
+  .title, .subtitle {
+    display: flex;
+    justify-content: center;
+    padding-top: 2px;
+  }
+
+  .description {
+    text-align: center;
   }
 }
