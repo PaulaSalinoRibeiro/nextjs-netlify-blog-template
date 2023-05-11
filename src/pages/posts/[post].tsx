@@ -8,6 +8,7 @@ import fs from "fs";
 import yaml from "js-yaml";
 import PostLayout from "../../components/PostLayout";
 import Profile from "../../components/Profile";
+import DivisionLine from '../../components/DivisionLine';
 
 export type Props = {
   title: string;
@@ -31,6 +32,7 @@ export default function Post({
   return (
     <div className="container">
       <Profile path="/images/profile.png"/>
+      <DivisionLine />
       <PostLayout
         title={title}
       >
