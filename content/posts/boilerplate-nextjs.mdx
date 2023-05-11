@@ -1,0 +1,76 @@
+---
+slug: "boilerplate-nextjs"
+title: "Criando um boilerplate frontend do zero!"
+date: "11 de Maio de 2023"
+subtitle: "Nesse artigo irei criar um boilerplate do completo zero de um projeto frontend utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css."
+tags:
+  - nextjs
+  - frontend
+  - javascript
+  - typescript
+---
+
+Um boilerplate pode ser entendido como um modelo inicial de arquivos de código pré configurados que serve como ponto de partida na criação de projetos, nesse artigo irei criar um boilerplate do completo zero de um projeto frontend utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css.
+
+Aqui vamos utilizar o Next.js por ser um framework do React que possui integração com TypeScript, permite trabalhar com rederização do lado do servidor e seu sistema de roteamento permite criar rotas de forma dinâmica e flexível, além disso, possui suporte a diversas fontes de dados.
+
+Realizar a configuração de um projeto é essencial para garantir que o desenvolvimento do projeto ocorra de forma organizada  e eficiente, além de ser possivel automatizar algumas tarefas repetitivas, realizar a padronização de código e ainda fornecer uma estrutura adequada, afim de, garantir escalabilidade.
+
+<br/>
+
+## 1. Iniciando o projeto
+
+<br/>
+
+Podemos iniciar o projeto criando um diretório e instalando as biliotecas necessárias.
+
+```js
+
+mkdir boilerplate_nextjs && cd boilerplate_nextjs
+npm init -y
+npm install next react react-dom
+
+```
+
+<br/>
+
+Após a instalação podemos adicionar os scripts no **package.json**
+
+<br/>
+
+```js
+
+"scripts": {
+    "dev": "next dev", // modo de desenvolvimento
+    "build": "next build", // modo de produção
+    "start": "next start" // iniciar o servidor no modo de produção
+  },
+
+```
+
+<br/>
+
+Por fim, criamos dois diretórios na raiz do projeto public e src. Dentro do diretório src criamos um novo diretório pages com o arquivo index.js com o trecho de código a seguir:
+
+<br/>
+
+```js
+
+export default function Home() {
+	return <h1>Hello world!</h1>
+}
+
+```
+
+<br/>
+
+Ao executar o comando npm run dev no terminal, o servidor é iniciando no modo de desenvolvimento e automaticamente é gerado o diretório .next na raiz do projeto.
+
+<br/>
+
+![Diretórios](/images/bolierplate-nextjs/directories.png)
+
+<br/>
+Em resumo, o diretório .next é um diretório oculto gerado automaticamente pelo Next.js durante o processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em produção.
+
+<br/>

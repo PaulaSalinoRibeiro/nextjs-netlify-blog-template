@@ -6,6 +6,84 @@
   padding: 0 4rem;
 }
 
+.article {
+  width:100%;
+}
+
 .content {
-  
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.content a {
+  /* color: blue; */
+  text-decoration: underline;
+}
+.content h1 {
+  margin: 2.5rem 0 0 0;
+}
+
+.content h2,
+.content h3,
+.content h4,
+.content h5 {
+  margin: 2rem 0 0 0;
+  line-height: 1.25em;
+}
+
+.content h2::before {
+  position: absolute;
+  margin-left: -1em;
+  font-weight: 300;
+  font-size: 1.5rem;
+  display: none;
+}
+
+.content pre {
+  display: block;
+  background-color:#262626;
+  line-height: 1.25rem;
+  padding: 1rem;
+  overflow: auto;
+  margin: 1.75rem 0 0 0;
+}
+.content pre code {
+  background-color:#262626;
+  font-size: 100%;
+  padding: 0;
+}
+
+.content code {
+  font-family: monospace;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  background-color:#262626;
+}
+
+.content code {
+  font-family: monospace;
+  font-family: monospace;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  background-color: #eee;
+  border-radius: 3px;
+}
+
+.content kbd {
+  font-family: "Ubuntu Mono", monospace;
+  font-family: monospace;
+}
+
+.content img {
+  width: 50%;
+  margin: 0 auto;
+  align-content: center;
+}
+
+@media (min-width: 769px) {
+  .container {
+    display: block;
+  }
 }

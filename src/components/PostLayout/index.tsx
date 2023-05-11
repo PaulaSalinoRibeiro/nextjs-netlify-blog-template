@@ -10,7 +10,7 @@ export default function PostLayout({
 }: Props) {
   return (
     <div className={styles.container}>
-      <article>
+      <article className={styles.article}>
         <header>
           <h1>{title}</h1>
         </header>
