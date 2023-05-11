@@ -1,6 +1,7 @@
 .container > a {
   display: inline-block;
-  margin: 8px 12px;
+  margin: 8px 0px;
+  margin-right: 18px;
 }
 
 @media (width < 768px) {

@@ -2,7 +2,7 @@
 slug: "boilerplate-nextjs"
 title: "Criando um boilerplate frontend do zero!"
 date: "11 de Maio de 2023"
-subtitle: "Nesse artigo irei criar um boilerplate do completo zero de um projeto frontend utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css."
+subtitle: "A configuração desse boilerplate utiliza Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged, Tailwind Css e StoryBook."
 tags:
   - nextjs
   - frontend
@@ -71,6 +71,120 @@ Ao executar o comando npm run dev no terminal, o servidor é iniciando no modo d
 ![Diretórios](/images/bolierplate-nextjs/directories.png)
 
 <br/>
+
 Em resumo, o diretório .next é um diretório oculto gerado automaticamente pelo Next.js durante o processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em produção.
 
 <br/>
+
+## 2. Adicionando TypeScript
+
+<br/>
+
+O TypeScript é um superset JavaScript com ele temos acesso a recursos adicionais que permite desenvolvermos aplicações escaláveis, ou seja, ele permite identificarmos erros de compilação ainda em tempo de execução, além de, contribuir para uma maior legibilidade de código facilitando a manuteção.
+
+<br/>
+
+Para adicionar o typescript basta criar na raiz do projeto o arquivo tsconfig.json e executar o comando npm run dev.
+
+<br/>
+
+```js
+touch tsconfig.json
+
+npm run dev
+```
+
+<br/>
+
+Com isso os pacotes typescript, @types/react, @types/node serão instalados como dependencias de desenvolvimento no package.json.
+
+<br/>
+
+```js
+
+"devDependencies": {
+    "@types/node": "18.15.13",
+    "@types/react": "18.0.37",
+    "typescript": "5.0.4"
+  }
+
+```
+
+<br/>
+
+E o arquivo tsconfig.json  passa a ter a seguinte configuração.
+
+<br/>
+
+```js
+
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true, // por padrão inicia como falso
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+```
+
+<br/>
+
+E também é criado na raiz do projeto um arquivo next.env.d.ts com a configuração
+
+<br/>
+
+```js
+
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+
+```
+
+<br/>
+
+Agora basta renomear o arquivo index.js para index.tsx
+
+<br/>
+
+💡 Dica: Caso o TypeScript não mostre os erros, adicione o diretório .vscode com o arquivo settings.json a configuração. 
+
+<br/>
+
+```js
+
+{
+  "typescript.validate.enable": true,
+}
+
+```
+
+<br/>
+
+Ou tente reiniciar o vscode ou o computador.
+
+<br/>
+
+## 3. Adicionando ESLint 

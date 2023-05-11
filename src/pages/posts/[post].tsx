@@ -12,9 +12,8 @@ import DivisionLine from '../../components/DivisionLine';
 
 export type Props = {
   title: string;
-  dateString: string;
-  slug: string;
-  description?: string;
+  date: string,
+  subtitle: string,
   source: MdxRemote.Source;
 };
 
@@ -26,6 +25,8 @@ const slugToPostContent = (postContents => {
 
 export default function Post({
   title,
+  date,
+  subtitle,
   source,
 }: Props) {
   const content = hydrate(source)
@@ -35,6 +36,8 @@ export default function Post({
       <DivisionLine />
       <PostLayout
         title={title}
+        date={date}
+        subtitle={subtitle}
       >
         {content}
       </PostLayout>
@@ -56,10 +59,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { content, data } = matter(source, {
     engines: { yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as object }
   });
+
   const mdxSource = await renderToString(content, { scope: data });
   return {
     props: {
       title: data.title,
+      date: data.date,
+      subtitle: data.subtitle,
       source: mdxSource
     },
   };
