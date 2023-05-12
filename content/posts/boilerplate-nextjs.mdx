@@ -1,7 +1,7 @@
 ---
 slug: "boilerplate-nextjs"
 title: "Criando um boilerplate frontend do zero!"
-date: "11 de Maio de 2023"
+date: "12 de Maio de 2023"
 subtitle: "Nesse tutorial irei te guiar na criação de um boilerplate utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css."
 tags:
   - nextjs
@@ -279,7 +279,7 @@ Does your project use TypeScript? › No / Yes
 
 Checking peerDependencies of eslint-config-standard-with-typescript@latest
 Local ESLint installation not found.
-The config that you've selected requires the following dependencies:
+The config that you ve selected requires the following dependencies:
 
 eslint-plugin-react@latest eslint-config-standard-with-typescript@latest @typescript-eslint/eslint-plugin@^5.43.0 eslint@^8.0.1 eslint-plugin-import@^2.25.2 eslint-plugin-n@^15.0.0 eslint-plugin-promise@^6.0.0 typescript@*
 ? Would you like to install them now? › No / Yes
@@ -332,7 +332,9 @@ configuração a seguir:
 <br/>
 
 ```
+
   npm install -D plugin:@typescript-eslint @typescript-eslint/parser
+
 ```
 
 <br/>
@@ -369,6 +371,7 @@ Agora precisamos modificar o arquivo <span>.eslintrc.json</span> e adicionar ess
 }
 
 ```
+
 <br/>
 
 E podemos adicionar aos scripts o comando
@@ -429,3 +432,109 @@ executar o comando no terminal, são elas ESLint criada pela Microsoft e a Error
 <br/>
 
 ![Erro lens pluggings](/images/bolierplate-nextjs/erro-lens.png)
+
+<br/>
+
+# 4. Adicionando Jest
+
+<br/>
+
+Escrever testes é extremamente importante para garantir que a aplicação funcione corretamente e se torne 
+escalável, aqui irei adicionar o Jest para ser a ferramenta de teste do boilerplate.
+
+<br/>
+
+E para instalar o Jest e configura-lo precisamos instalar alguns pacotes como mostra a seguir:
+
+<br/>
+
+```shell
+
+npm install -D jest @types/jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom
+
+```
+
+<br/>
+
+É possivel utilizar o comando <span>jest --init</span> para criar o arquivo de configuração automaticamente, porém, 
+irei criar manualmente apenas com as cofigurações necessárias.
+
+<br/>
+
+Para isso, basta criar na raiz do projeto o arquivo <span>jest.config.js</span> e passar a seguinte configuração:
+
+<br/>
+
+```js
+
+module.exports = {
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'], // dizemos para ignorar esses diretórios ao executar os testes
+  testEnvironment: 'jsdom', // utiliza o jsdom como ambiente de teste
+  testEnvironmentOptions: {
+    customExportConditions: ['react', 'next']
+  },
+  setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'], // antes de executar os teste utiliza este arquivo
+  modulePaths: ['<rootDir>/src/']
+}
+
+```
+
+<br/>
+
+
+Precisamos adicionar a raiz do projeto o diretório <span>.jest</span> contendo o arquivo <span>setup.ts</span> 
+com os importes
+
+<br/>
+
+```ts
+
+import '@testing-library/react'
+import '@testing-library/jest-dom'
+
+```
+
+<br/>
+
+Com isso, não será necessário fazer a importação dessas bibliotecas nos arquivos de teste.
+
+<br/>
+
+Para finalizar nossa configuracão precisamos adicionar na raiz do projeto o arquivo <span>babel.config.js</span>  
+a configuração a seguir:
+
+<br/>
+
+```js
+
+module.exports = {
+  presets: [
+    '@babel/preset-typescript', // informamos que estamos utilizando typescript
+    'next/babel' // informamos que estamos utilizando o next
+  ]
+}
+
+```
+
+<br/>
+
+Com o preset <span>@babel/preset-typescript</span> adicionado nas cofigurações é necessário fazer sua instalação e 
+também adicionar o comando de testes aos scripts.
+
+<br/>
+
+```js
+
+"scripts": {
+    "test": "jest",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "npx eslint src/**/*.tsx --fix"
+  },
+
+```
+
+<br/>
+
+# 5. Adicionando Husky e Lint-staged
