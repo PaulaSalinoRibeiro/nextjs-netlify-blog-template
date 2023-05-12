@@ -538,3 +538,103 @@ também adicionar o comando de testes aos scripts.
 <br/>
 
 # 5. Adicionando Husky e Lint-staged
+
+<br/>
+
+Essas ferramentas serão utilizadas para automatizar algumas taferas de pré-commit, de forma a garantir 
+que o código enviado para o repositório não tenha erros de lint e nem testes quebrados com as alterações feitas.
+
+<br/>
+
+Antes de configurar essas ferramentas precisamos inicializar o git com o comando <span>git init</span>. 
+
+<br/>
+
+Agora podemos instalar as bibliotecas  <span>husky</span> e o <span>lint-staged</span>.
+
+<br/>
+
+```shell
+
+npm install -D husky lint-staged
+
+```
+
+<br/>
+
+Em seguida adicionamos aos scripts o comando <span>"prepare": "husky install"</span> e 
+executamos no terminal <span>npm run prepare</span>. Com isso será criado automaticamente o 
+diretório <span>.husky</span> na raiz do projeto como mostra a imagem a seguir:
+
+<br/>
+
+![Diretório husky](/images/bolierplate-nextjs/husky.png)
+
+<br/>
+
+Para configura o lint-staged precisamos adicionar ao <span>package.json</span> a 
+chave <span>"lint-staged"</span> com os scripts que queremos executar antes de cada 
+commit, conforme o exemplo a seguir:
+
+<br/>
+
+```json
+
+ "lint-staged": {
+    "src/**/*{ts,tsx}": "npm run lint", // verifica erros de lint
+    "src/test/**/*": "npm test --findRelatedTests --bail" // executa os testes
+  },
+
+```
+
+<br/>
+
+As flags <span>--findRelatedTests</span> e <span>--bail</span> servem respectivamente para executar 
+apenas os teste nos arquivos que forma modificados e interromper a execução dos 
+testes assim que um falhar.
+
+<br/>
+
+Agora podemos adicionar o arquivo <span>pre-commit</span> dentro do diretório 
+<span>.husky</span> com o seguinte código:
+
+<br/>
+
+```sh
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint-staged
+
+```
+
+<br/> 
+
+Por fim, adicionamos o comando <span>"lint-staged": "lint-staged"</span> aos scripts.
+
+<br/>
+
+Agora ao fazer um commit os scripts de teste e lint serão executados automaticamentes 
+nos arquivos em staged e caso exista algum erro de lint ou teste não será possivel 
+realizar o commit.
+
+<br/>
+
+![Lint-staged e Husky rodando com um commit](/images/bolierplate-nextjs/husky-lint-staged.png)
+
+<br/>
+
+⚠️ Atenção: Caso encontre o seguinte erro no terminal, basta executar o comando 
+<span>chmod ug+x .husky/*</span>
+
+```shell
+
+hint: The '.husky/pre-commit' hook was ignored because it s not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+
+```
+
+<br/>
+
+# 6. Adicionando Tailwind CSS
