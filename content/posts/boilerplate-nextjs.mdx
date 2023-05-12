@@ -2,7 +2,7 @@
 slug: "boilerplate-nextjs"
 title: "Criando um boilerplate frontend do zero!"
 date: "11 de Maio de 2023"
-subtitle: "A configuração desse boilerplate utiliza Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css."
+subtitle: "Nesse tutorial irei te guiar na criação de um boilerplate utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css."
 tags:
   - nextjs
   - frontend
@@ -12,15 +12,26 @@ tags:
 
 <br/>
 
-Um boilerplate pode ser entendido como um modelo inicial de arquivos de código pré configurados que serve como ponto de partida na criação de projetos, nesse artigo irei criar um boilerplate do completo zero de um projeto frontend utilizando Next.js, TypeScript, ESLint, Jest, Husky, Lint-Staged e Tailwind Css.
+Antes de começarmos vamos entender primerio o conceito de um boilerplate, que consiste um modelo inicial de 
+arquivos de código pré configurados que serve como ponto de partida na criação de projetos, nesse artigo irei 
+criar um boilerplate do completo zero de um projeto frontend utilizando Next.js, TypeScript, ESLint, 
+Jest, Husky, Lint-Staged e Tailwind CSS.
 
 <br/>
 
-Aqui vamos utilizar o Next.js por ser um framework do React que possui integração com TypeScript, permite trabalhar com rederização do lado do servidor e seu sistema de roteamento permite criar rotas de forma dinâmica e flexível, além disso, o Next.js possui suporte a diversas fontes de dados.
+Aqui vamos utilizar o Next.js por ser um framework do React que possui integração com TypeScript, permite trabalhar 
+com rederização do lado do servidor e seu sistema de roteamento permite criar rotas de forma dinâmica e flexível, 
+além disso, o Next.js possui suporte a diversas fontes de dados.
 
 <br/>
 
-Realizar a configuração de um projeto é essencial para garantir que o desenvolvimento do projeto ocorra de forma organizada  e eficiente, além de ser possivel automatizar algumas tarefas repetitivas, realizar a padronização de código e ainda fornecer uma estrutura adequada, afim de, garantir escalabilidade.
+E por que é importante realizar a configuração de um projeto? 
+
+<br/>
+
+Porque a configuração é essencial para garantir que o desenvolvimento do projeto ocorra de forma 
+organizada  e eficiente, além de ser possivel automatizar algumas tarefas repetitivas, realizar a padronização de 
+código e ainda fornecer uma estrutura adequada, afim de, garantir escalabilidade.
 
 <br/>
 
@@ -51,7 +62,7 @@ Após a instalação podemos adicionar os scripts no <span>package.json</span>
 ```json
 
 "scripts": {
-	  "dev": "next dev", // modo de desenvolvimento
+	"dev": "next dev", // modo de desenvolvimento
     "build": "next build", // modo de produção
     "start": "next start" // iniciar o servidor no modo de produção
   },
@@ -60,7 +71,8 @@ Após a instalação podemos adicionar os scripts no <span>package.json</span>
 
 <br/>
 
-Por fim, criamos dois diretórios na raiz do projeto <span>public</span> e <span>src</span>. Dentro do diretório src criamos um novo diretório pages com o arquivo <span>index.js</span> com o trecho de código a seguir:
+Por fim, criamos dois diretórios na raiz do projeto <span>public</span> e <span>src</span>. Dentro do diretório 
+src criamos um novo diretório <span>pages</span> com o arquivo <span>index.js</span> com o trecho de código a seguir:
 
 <br/>
 
@@ -74,7 +86,8 @@ export default function Home() {
 
 <br/>
 
-Ao executar o comando <span>npm run dev</span> no terminal, o servidor é iniciando no modo de desenvolvimento e automaticamente é gerado o diretório <span>.next</span> na raiz do projeto.
+Ao executar o comando <span>npm run dev</span> no terminal, o servidor é iniciando no modo de desenvolvimento e 
+automaticamente é gerado o diretório <span>.next</span> na raiz do projeto.
 
 <br/>
 
@@ -82,7 +95,9 @@ Ao executar o comando <span>npm run dev</span> no terminal, o servidor é inicia
 
 <br/>
 
-Em resumo, o diretório <span>.next</span> é um diretório oculto gerado automaticamente pelo Next.js durante o processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em produção.
+Em resumo, o diretório <span>.next</span> é um diretório oculto gerado automaticamente pelo Next.js durante o 
+processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em 
+produção.
 
 <br/>
 
@@ -90,15 +105,18 @@ Em resumo, o diretório <span>.next</span> é um diretório oculto gerado automa
 
 <br/>
 
-O TypeScript é um superset JavaScript com ele temos acesso a recursos adicionais que permite desenvolvermos aplicações escaláveis, ou seja, ele permite identificarmos erros de compilação ainda em tempo de execução, além de, contribuir para uma maior legibilidade de código facilitando a manuteção.
+O TypeScript é um superset JavaScript com ele temos acesso a recursos adicionais que permite desenvolvermos 
+aplicações escaláveis, ou seja, ele permite identificarmos erros de compilação ainda em tempo de execução, além de, 
+contribuir para uma maior legibilidade de código facilitando a manuteção.
 
 <br/>
 
-Para adicionar o typescript basta criar na raiz do projeto o arquivo <span>tsconfig.json</span> e executar o comando <span>npm run dev</span>
+Para adicionar o typescript basta criar na raiz do projeto o arquivo <span>tsconfig.json</span> e executar o 
+comando <span>npm run dev</span>
 
 <br/>
 
-```
+```shell
 
 touch tsconfig.json
 
@@ -108,8 +126,8 @@ npm run dev
 
 <br/>
 
-Com isso os pacotes typescript, <span>@types/react, @types/node</span> serão instalados como dependencias de desenvolvimento no <span>package.json</span>.
-
+Com isso os pacotes typescript, <span>@types/react, @types/node</span> serão instalados como dependencias de 
+desenvolvimento no <span>package.json</span>.
 
 <br/>
 
@@ -169,7 +187,7 @@ E também é criado na raiz do projeto um arquivo <span>next.env.d.ts</span> com
 
 <br/>
 
-```
+```ts
 
 /// <reference types="next" />
 /// <reference types="next/image-types/global" />
@@ -182,7 +200,8 @@ Agora basta renomear o arquivo <span>index.js</span> para <span>index.tsx</span>
 
 <br/>
 
-💡 Dica: Caso o TypeScript não mostre os erros, adicione o diretório <span>.vscode</span> com o arquivo <span>settings.json</span> a configuração.
+💡 Dica: Caso o TypeScript não mostre os erros, adicione o diretório <span>.vscode</span> com o 
+arquivo <span>settings.json</span> a configuração.
 
 <br/>
 
@@ -194,6 +213,219 @@ Agora basta renomear o arquivo <span>index.js</span> para <span>index.tsx</span>
 
 ```
 
-</br>
+<br/>
 
 Ou tente reiniciar o vscode ou o computador.
+
+<br/>
+
+# 3. Adicionando ESLint
+
+<br/>
+
+O ESLint é uma ferramenta de analize estática de código, essa biblioteca será responsável por detectar e 
+corrigir erros comuns de código, além de padronizar o estilo de codificação. Com isso garantimos a qualidade e 
+consistência do código tornando mais fácil de ser compreendido. 
+
+<br/>
+
+Para adicionar o ESLint basta executar o comando <span>npm init @eslint/config</span> no terminal.
+
+<br/>
+
+E em seguinda responder as perguntas para configurar o arquivo <span>eslintrc.json</span>
+
+<br/>
+
+```shell
+
+Need to install the following packages:
+@eslint/create-config
+Ok to proceed? (y) y
+
+? How would you like to use ESLint? … 
+  To check syntax only
+  To check syntax and find problems
+❯ To check syntax, find problems, and enforce code style
+
+? What type of modules does your project use? … 
+❯ JavaScript modules (import/export)
+  CommonJS (require/exports)
+  None of these
+
+? Which framework does your project use? … 
+❯ React
+  Vue.js
+  None of these
+
+Does your project use TypeScript? › No / Yes
+
+? Where does your code run? …  (Press <space> to select, <a> to toggle all, <i> to invert selection)
+✔ Browser
+✔ Node
+
+? How would you like to define a style for your project? … 
+❯ Use a popular style guide
+  Answer questions about your style
+
+? Which style guide do you want to follow? … 
+❯ Standard: https://github.com/standard/eslint-config-standard-with-typescript
+  XO: https://github.com/xojs/eslint-config-xo-typescript
+
+? What format do you want your config file to be in? … 
+❯ JavaScript
+  YAML
+  JSON
+
+Checking peerDependencies of eslint-config-standard-with-typescript@latest
+Local ESLint installation not found.
+The config that you've selected requires the following dependencies:
+
+eslint-plugin-react@latest eslint-config-standard-with-typescript@latest @typescript-eslint/eslint-plugin@^5.43.0 eslint@^8.0.1 eslint-plugin-import@^2.25.2 eslint-plugin-n@^15.0.0 eslint-plugin-promise@^6.0.0 typescript@*
+? Would you like to install them now? › No / Yes
+
+? Which package manager do you want to use? … 
+❯ npm
+  yarn
+  pnpm
+
+```
+
+<br/>
+
+Após concluir essa etapa o arquivo <span>eslintrc.json</span> é criado automaticamente na raiz do projeto com a 
+configuração a seguir:
+
+<br/>
+
+```json
+
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard-with-typescript"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+    }
+}
+
+```
+
+<br/>
+
+⚠️ Atenção: Por estarmos utilizando o typescript é necessário adicionar dois pacotes 
+<span>plugin:@typescript-eslint</span> e <span>@typescript-eslint/parser</span>
+
+<br/>
+
+```
+  npm install -D plugin:@typescript-eslint @typescript-eslint/parser
+```
+
+<br/>
+
+Agora precisamos modificar o arquivo <span>.eslintrc.json</span> e adicionar esse pacotes.
+
+<br/>
+
+```json
+
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "standard-with-typescript",
+        "plugin:storybook/recommended"
+    ],
+    "overrides": [],
+    "parse": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",       
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react", "@typescript-eslint" 
+    ],
+    "rules": {
+      
+    }
+}
+
+```
+<br/>
+
+E podemos adicionar aos scripts o comando
+
+<br/>
+
+```json
+
+"scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "npx eslint src/**/*.tsx --fix" 
+  },
+
+```
+
+<br/>
+
+A flag <span>--fix</span> serve para corrigir automaticamente os erros.
+
+<br/>
+
+⚠️ Atenção: Nem todos os erros o ESLint será capaz de corrigir sozinho.
+
+<br/>
+
+Agora ao executar o comando <span>npm run lint</span> o ESLint começa a acusar os erros
+
+<br/>
+
+![ESLint detectando erros](/images/bolierplate-nextjs/erro-lint.png)
+
+<br/>
+
+Caso alguma regra não faça sentido é possivel desabilitar no arquivo <span>eslintrc.json</span>
+
+<br/>
+
+```json
+
+"rules": {
+        // remove a obrigatóriedade de importar React na primeira linha
+        "react/react-in-jsx-scope": "off",
+    }
+
+```
+
+<br/>
+
+💡 Dica:  Existem duas extensões no vscode que ajuda a identificar os erros de lint sem a necessidade de 
+executar o comando no terminal, são elas ESLint criada pela Microsoft e a Error Lens.
+
+<br/>
+
+![ESLint pluggings](/images/bolierplate-nextjs/eslint.png)
+
+<br/>
+
+![Erro lens pluggings](/images/bolierplate-nextjs/erro-lens.png)
