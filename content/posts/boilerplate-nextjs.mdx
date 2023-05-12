@@ -16,7 +16,7 @@ Um boilerplate pode ser entendido como um modelo inicial de arquivos de código 
 
 <br/>
 
-Aqui vamos utilizar o Next.js por ser um framework do React que possui integração com TypeScript, permite trabalhar com rederização do lado do servidor e seu sistema de roteamento permite criar rotas de forma dinâmica e flexível, além disso, possui suporte a diversas fontes de dados.
+Aqui vamos utilizar o Next.js por ser um framework do React que possui integração com TypeScript, permite trabalhar com rederização do lado do servidor e seu sistema de roteamento permite criar rotas de forma dinâmica e flexível, além disso, o Next.js possui suporte a diversas fontes de dados.
 
 <br/>
 
@@ -44,7 +44,7 @@ npm install next react react-dom
 
 <br/>
 
-Após a instalação podemos adicionar os scripts no package.json
+Após a instalação podemos adicionar os scripts no <span>package.json</span>
 
 <br/>
 
@@ -60,7 +60,7 @@ Após a instalação podemos adicionar os scripts no package.json
 
 <br/>
 
-Por fim, criamos dois diretórios na raiz do projeto public e src. Dentro do diretório src criamos um novo diretório pages com o arquivo index.js com o trecho de código a seguir:
+Por fim, criamos dois diretórios na raiz do projeto <span>public</span> e <span>src</span>. Dentro do diretório src criamos um novo diretório pages com o arquivo <span>index.js</span> com o trecho de código a seguir:
 
 <br/>
 
@@ -74,7 +74,7 @@ export default function Home() {
 
 <br/>
 
-Ao executar o comando npm run dev no terminal, o servidor é iniciando no modo de desenvolvimento e automaticamente é gerado o diretório .next na raiz do projeto.
+Ao executar o comando <span>npm run dev</span> no terminal, o servidor é iniciando no modo de desenvolvimento e automaticamente é gerado o diretório <span>.next</span> na raiz do projeto.
 
 <br/>
 
@@ -82,4 +82,118 @@ Ao executar o comando npm run dev no terminal, o servidor é iniciando no modo d
 
 <br/>
 
-Em resumo, o diretório .next é um diretório oculto gerado automaticamente pelo Next.js durante o processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em produção.
+Em resumo, o diretório <span>.next</span> é um diretório oculto gerado automaticamente pelo Next.js durante o processo de construção de um projeto, nele contém os arquivos necessários para a renderização do aplicativo em produção.
+
+<br/>
+
+# 2. Adicionando TypeScript
+
+<br/>
+
+O TypeScript é um superset JavaScript com ele temos acesso a recursos adicionais que permite desenvolvermos aplicações escaláveis, ou seja, ele permite identificarmos erros de compilação ainda em tempo de execução, além de, contribuir para uma maior legibilidade de código facilitando a manuteção.
+
+<br/>
+
+Para adicionar o typescript basta criar na raiz do projeto o arquivo <span>tsconfig.json</span> e executar o comando <span>npm run dev</span>
+
+<br/>
+
+```
+
+touch tsconfig.json
+
+npm run dev
+
+```
+
+<br/>
+
+Com isso os pacotes typescript, <span>@types/react, @types/node</span> serão instalados como dependencias de desenvolvimento no <span>package.json</span>.
+
+
+<br/>
+
+```json
+
+"devDependencies": {
+    "@types/node": "18.15.13",
+    "@types/react": "18.0.37",
+    "typescript": "5.0.4"
+  }
+
+```
+
+<br/>
+
+E o arquivo <span> tsconfig.json </span>  passa a ter a seguinte configuração.
+
+<br/>
+
+```ts
+
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true, // por padrão inicia como falso
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+```
+
+<br/>
+
+E também é criado na raiz do projeto um arquivo <span>next.env.d.ts</span> com a configuração
+
+<br/>
+
+```
+
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+
+```
+
+<br/>
+
+Agora basta renomear o arquivo <span>index.js</span> para <span>index.tsx</span>
+
+<br/>
+
+💡 Dica: Caso o TypeScript não mostre os erros, adicione o diretório <span>.vscode</span> com o arquivo <span>settings.json</span> a configuração.
+
+<br/>
+
+```json
+
+{
+  "typescript.validate.enable": true,
+}
+
+```
+
+</br>
+
+Ou tente reiniciar o vscode ou o computador.
