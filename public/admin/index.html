@@ -9,25 +9,5 @@
   </head>
   <body>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-    <!-- <script>
-      CMS.registerPreviewStyle(
-        "https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@100;400;900&family=Work+Sans:wght@400;500&display=swap"
-      );
-      // CMS.registerPreviewStyle("/styles/content.module.css");
-      let PostPreview = createClass({
-        render: function () {
-          let entry = this.props.entry;
-          let date = entry.getIn(["data", "date"]);
-          return h(
-            "div",
-            { className: "content" },
-            h("h1", {}, entry.getIn(["data", "title"])),
-            h("time", {}, entry.getIn(["data", "date"])),
-            h("div", {}, this.props.widgetFor("body"))
-          );
-        },
-      });
-      CMS.registerPreviewTemplate("posts", PostPreview);
-    </script> -->
   </body>
 </html>
