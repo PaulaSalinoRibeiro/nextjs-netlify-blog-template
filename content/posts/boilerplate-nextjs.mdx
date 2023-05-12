@@ -638,3 +638,75 @@ hint: You can disable this warning with `git config advice.ignoredHook false`.
 <br/>
 
 # 6. Adicionando Tailwind CSS
+
+<br/>
+
+O Tailwind CSS é um framework de estilização que permite criar interfaces 
+responsivas de forma muito facil.
+
+<br/>
+
+Para adicionar o Tailwind CSS ao boilerplate precisamos instalar os pacotes.
+
+<br/>
+
+```shell
+
+npm install tailwindcss postcss autoprefixer
+
+```
+
+<br/>
+
+E executar o comando <span>npx tailwindcss init -p</span>  no terminal. Automaticamente serão criados os 
+arquivos <span>postcss.config.js</span> e <span>tailwind.config.js</span> na raiz do projeto com a configuração
+
+<br/>
+
+```js
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx,mdx}' // adicionar o caminho do arquivo
+  ],
+  theme: {
+    extend: {}
+  },
+  plugins: []
+}
+
+```
+
+<br/>
+
+Adicionamos o diretório <span>styles</span> contendo o arquivo <span>global.css</span> com as diretivas do 
+Tailwind CSS.
+
+<br/>
+
+```css
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+```
+
+<br/>
+
+Para utilizarmos as classes do Tailwind precisamos adicionar o arquivo <span>_app.tsx</span> 
+dentro do diretório <span>pages</span> e realizar a importação do arquivo <span>globa.css</span>.
+
+<br/>
+
+```tsx
+
+import { type AppProps } from 'next/app'
+import '../styles/globals.css'
+
+export default function App ({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
+}
+
+```
