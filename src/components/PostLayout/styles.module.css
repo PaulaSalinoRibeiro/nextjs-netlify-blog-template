@@ -269,42 +269,19 @@
   white-space: pre;
 }
 
-/* .content pre {
-  display: block;
-  background-color:#262626;
-  line-height: 1.25rem;
-  padding: 1rem;
-  overflow: auto;
-  margin: 1.75rem 0 0 0;
-}
-.content pre code {
-  background-color:#262626;
-  font-size: 100%;
-  padding: 0;
-}
-
-.content code {
-  font-family: monospace;
-  font-size: 85%;
-  padding: 0.2em 0.4em;
-  margin: 0;
-  background-color:#262626;
-}
-
-.content code {
-  font-family: monospace;
-  font-family: monospace;
-  font-size: 85%;
-  padding: 0.2em 0.4em;
-  margin: 0;
-  background-color: #eee;
-  border-radius: 3px;
-} */
-
 .content img {
   width: 60%;
   margin: 0 auto;
   align-content: center;
+}
+
+.comments {
+  width: 100%;
+  border: 1px solid var(--secondary);
+}
+
+.utterances {
+  background: red;
 }
 
 @media (min-width: 769px) {

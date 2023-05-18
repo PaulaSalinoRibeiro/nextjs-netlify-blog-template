@@ -39,6 +39,16 @@ export default function PostLayout({
         </header>
         <div className={styles.content}>{children}</div>
       </article>
+      <div className={styles.coments}>
+        <script 
+          src="https://utteranc.es/client.js"
+          repo="https://github.com/PaulaSalinoRibeiro/my-blog"
+          issue-term="title"
+          theme="dark-blue"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
     </div>
   );
 }
