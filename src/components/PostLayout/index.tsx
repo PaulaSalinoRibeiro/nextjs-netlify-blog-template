@@ -3,6 +3,7 @@ import Link from 'next/link';
 import ArrowBack from "../../assets/arrow-back.svg";
 import styles from "./styles.module.css"
 import { useEffect } from 'react';
+import Comments from '../Comments';
 
 type Props = {
   title: string;
@@ -39,17 +40,7 @@ export default function PostLayout({
         </header>
         <div className={styles.content}>{children}</div>
       </article>
-      <div className={styles.coments}>
-        <script 
-          src="https://utteranc.es/client.js"
-          // @ts-ignore
-          repo="PaulaSalinoRibeiro/my-blog"
-          issue-term="title"
-          theme="dark-blue"
-          crossorigin="anonymous"
-          async>
-        </script>
-      </div>
+      <Comments title={title}/>
     </div>
   );
 }
