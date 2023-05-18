@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 60px;
@@ -74,12 +75,4 @@
   width: 60%;
   margin: 0 auto;
   align-content: center;
-}
-
-
-@media (max-width: 769px) {
-  .container {
-    display: block;
-    width: 100%;
-  }
 }

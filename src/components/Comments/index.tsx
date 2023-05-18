@@ -18,5 +18,5 @@ export default function Comments({ title }: Props) {
 
   }, [title])
 
-  return <div ref={commentBox}></div>
+  return <div style={{ width: '100%' }} ref={commentBox}></div>
 }
