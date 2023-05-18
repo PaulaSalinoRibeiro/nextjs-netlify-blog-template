@@ -4,11 +4,23 @@
     "next/babel"
   ],
   "plugins": [
-    ["prismjs", {
-        "languages": ["javascript", "css", "markup"],
+    [
+      "prismjs",
+      {
+        "languages": [
+          "javascript",
+          "css",
+          "typescript",
+          "json",
+          "jsx",
+          "markdown",
+          "bash",
+          "yaml"
+        ],
         "plugins": ["line-numbers"],
-        "theme": "twilight",
+        "theme": "tomorrow",
         "css": true
-    }]
+      }
+    ]
   ]
 }
