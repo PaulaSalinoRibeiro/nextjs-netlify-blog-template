@@ -1,6 +1,8 @@
+import Prism from 'prismjs';
 import Link from 'next/link';
 import ArrowBack from "../../assets/arrow-back.svg";
 import styles from "./styles.module.css"
+import { useEffect } from 'react';
 
 type Props = {
   title: string;
@@ -14,6 +16,11 @@ export default function PostLayout({
   subtitle,
   children,
 }: Props) {
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [children]);
+  
   return (
     <div className={styles.container}>
       <article className={styles.article}>
