@@ -42,6 +42,7 @@ export default function PostLayout({
       <div className={styles.coments}>
         <script 
           src="https://utteranc.es/client.js"
+          // @ts-ignore
           repo="https://github.com/PaulaSalinoRibeiro/my-blog"
           issue-term="title"
           theme="dark-blue"

@@ -280,9 +280,9 @@
   border: 1px solid var(--secondary);
 }
 
-.utterances {
+/* .utterances {
   background: red;
-}
+} */
 
 @media (min-width: 769px) {
   .container {
