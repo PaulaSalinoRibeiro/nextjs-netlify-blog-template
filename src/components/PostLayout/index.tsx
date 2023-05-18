@@ -43,7 +43,7 @@ export default function PostLayout({
         <script 
           src="https://utteranc.es/client.js"
           // @ts-ignore
-          repo="https://github.com/PaulaSalinoRibeiro/my-blog"
+          repo="PaulaSalinoRibeiro/my-blog"
           issue-term="title"
           theme="dark-blue"
           crossorigin="anonymous"
