@@ -18,7 +18,7 @@
   padding-top: 18px;
   color: var(--secondary);
   font-weight: bold;
-  width: 90%;
+  width: 100%;
  
 }
 
@@ -80,5 +80,6 @@
 @media (min-width: 769px) {
   .container {
     display: block;
+    width: 100%;
   }
 }
