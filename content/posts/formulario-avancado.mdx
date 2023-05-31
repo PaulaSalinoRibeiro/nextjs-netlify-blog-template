@@ -1,0 +1,508 @@
+---
+slug: "formulario-avancado"
+title: "Formulário Avançado!"
+date: "01 de Junho de 2023"
+subtitle: "Neste post irei criar um formulário utilizando as bibliotecas React Hook Forms e Yup com Next.js e Typescript."
+tags:
+  - nextjs
+  - frontend
+  - react-hook-forms
+  - yup
+  - javascript
+  - typescript
+---
+
+<br/>
+
+Os formulários podem ser entendidos como uma coleção de <span>inputs</span>, <span>checkbox</span>, <span>select</span> entre outros elementos, é através deles conseguimos nos comunicar com o backend enviando dados. Alguns exemplos são a autenticação e login, cadastro,  envio de comentários, pesquisa e etc…
+
+<br/>
+
+Uma abordagens para criar um formulário é utilizando um evento sintético do react <span>onChange</span>/ <span>onSubmit</span> conforme mostra o exemplo de código a seguir:
+
+<br/>
+
+```jsx
+
+import { useState } from 'react';
+
+export default function Form() {
+  const [name, setName] = useState('');
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+	const handleSubmit = () => {
+		// valida o dado e envia para o backend
+	}
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nome:
+        <input 
+          type="text" 
+          value={name} 
+          onChange={handleChange}	
+        />
+      </label>
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
+
+```
+
+<br/>
+
+Neste exemplo o evento onChange é disparado cada vez que um caracter é digitado no campo <span>input</span>. 
+A cada disparo do evento a função  <span>handleChange</span> é executada e o <span>state name</span> é atualizado com um novo valor,  ou seja, se o nome digitado for Paula o componente <span>Form</span> será renderizado 5 vezes. 
+
+<br/>
+
+Por causa desse excesso de renderização uma outra solução é utilizar a biblioteca <span>react-hook-forms</span>.
+
+<br/>
+
+Para ilustrar o uso dessa biblioteca irei criar um simples formulário de cadastro, e como ponto de partida, irei utilizar o boilerplate criando no post anterior <a href="https://paularibeiro.netlify.app/posts/boilerplate-nextjs" target="__blank">link</a>
+
+<br/>
+
+```bash
+
+npx create-next-app forms-example --example URL_DO_REPOSITORIO
+
+```
+
+<br/>
+
+Em seguida vamos instalar as bibliotecas necessárias:
+
+<br/>
+
+```bash
+
+npm install react-hook-form yup @hookform/resolvers
+
+```
+
+<br/>
+
+⚠️ Atenção: Além de criar o formulário é necessário validar os dados que são inseridos, para isso vamos utilizar a biblioteca <span>yup</span> e <span>@hookform/resolvers</span>.
+
+<br/>
+
+Primeiro determinamos quais os campos serão necessários para realizar o cadastro, no nosso exemplo será necessário informar o nome, sobrenome, email, senha e confirmar a senha. Com isso podemos criar a tipagem dos dados.
+
+<br/>
+
+```jsx
+
+type UserRegisterForm = {
+  user: {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }
+}
+
+```
+
+<br/>
+
+Também precisamos determinar as validações desses campos e suas mensagens de erro. Para isso vamos utilizar a biblioteca <span>yup</span> conforme mostra a seguir:
+
+<br/>
+
+```jsx
+
+import * as yup from 'yup';
+
+const yupSchema = yup.object({
+  user: yup.object({
+    name: yup
+    .string()
+    .required('Nome é obrigatório'),
+    lastName: yup
+    .string()
+    .required('Sobrenome é obrigatório'),
+    email: yup
+    .string()
+    .email()
+    .required('Email é obrigatório'),
+    password: yup
+    .string()
+    .required('Senha é obrigatória')
+    .test('length', 'Senha deve ter no minimo 8 caracteres', (val) => val.length >= 8),
+    passwordConfirm: yup
+    .string()
+    .required('Confirmação de senha é obrigatória')
+    .oneOf([yup.ref('password')], 'Senhas não são iguais'),
+  })
+})
+
+```
+
+<br/>
+
+Agora podemos criar nosso formulário e utilizar a biblioteca <span>react-hooks-forms</span> 
+
+<br/>
+
+```jsx
+
+import { useForm } from 'react-hook-form';
+
+export default function Form () {
+	const { register, handleSubmit } = useForm<UserRegisterForm>();
+
+  const submitForm = ({ user }: UserRegisterForm) => {
+    console.log(user)
+  };
+
+	return (
+		<form onSubmit={handleSubmit(submitForm)}>
+			<div>
+			  <label>
+			    Nome:
+		      <input 
+			      type="text"
+		        { ...register('user.name')}
+		      />
+		    </label>
+		  </div>
+			<div>
+			  <label>
+			    Sobrenome:
+		      <input 
+			      type="text"
+		        { ...register('user.lastName')}
+		      />
+		    </label>
+		  </div>
+			<div>
+			  <label>
+			    Email:
+		      <input 
+			      type="text"
+		        { ...register('user.email')}
+		      />
+		    </label>
+		  </div>
+			<div>
+			  <label>
+			    Senha:
+		      <input 
+			      type="password"
+		        { ...register('user.password')}
+		      />
+		    </label>
+		  </div>
+			<div>
+			  <label>
+			    Confirmar senha:
+		      <input 
+			      type="password"
+		        { ...register('user.passwordConfirm')}
+		      />
+		    </label>
+		  </div>
+		  <button type="submit">Enviar</button>
+		</form>
+	)
+}
+
+```
+
+<br/>
+
+Desestruturamos de <span>useForm</span> duas funções <span>register</span> e <span>handleSubmit</span>.
+A função <span>register</span> que irá registrar o <span>value</span> do campo de <span>input</span>, portanto, ela é passada sendo invocada com seu respectivo campo de <span>input</span>. Enquanto a função <span>handleSubmit</span> irá validar os valores registrados antes de invocar a função <span>submitForm</span> .
+
+<br/>
+
+Para ter acesso as mensagens de erro precisamos desestruturar o objeto <span>errors</span> de dentro de  <span>formState</span> de <span>useForm</span>, e para integrar com as validações feitas pelo esquema <span>yupSchema</span> precisamos passar o <span>resolver</span> informando nosso esquema de validação como parâmetro da função <span>yupResolver</span> oriunda da biblioteca <span>@hookform/resolvers/yup</span>, conforme mostra a seguir:
+
+<br/>
+
+```jsx
+
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const { register, handleSubmit, formState: { errors } } = useForm<UserRegisterForm>({
+  resolver: yupResolver(yupSchema)
+});
+
+```
+
+<br/>
+
+Agora basta adicionar a verificação de erro para cada <span>input</span>, e o código do componente <span>Form</span> fica conforme mostra a seguir:
+
+<br/>
+
+```jsx
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+type UserRegisterForm = {
+  user: {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }
+}
+
+const yupSchema = yup.object({
+  user: yup.object({
+    name: yup
+    .string()
+    .required('Nome é obrigatório'),
+    lastName: yup
+    .string()
+    .required('Sobrenome é obrigatório'),
+    email: yup
+    .string()
+    .email()
+    .required('Email é obrigatório'),
+    password: yup
+    .string()
+    .required('Senha é obrigatória')
+    .test('length', 'Senha deve ter no minimo 8 caracteres', (val) => val.length >= 8),
+    passwordConfirm: yup
+    .string()
+    .required('Confirmação de senha é obrigatória')
+    .oneOf([yup.ref('password')], 'Senhas não são iguais'),
+  })
+})
+
+export default function Form () {
+  const { register, handleSubmit, formState: { errors } } = useForm<UserRegisterForm>({
+    resolver: yupResolver(yupSchema)
+  });
+
+  const submitForm = ({ user }: UserRegisterForm) => {
+    console.log(user)
+    // enviar os dados para o backend!
+  };
+
+  return (
+    <form onSubmit={handleSubmit(submitForm)}>
+      <div>
+        <label>
+          Nome:
+          <input 
+            type="text"
+            { ...register('user.name')}
+          />
+        </label>
+        { errors && <span>{errors?.user?.name?.message}</span> }
+      </div>
+      <div>
+        <label>
+          Sobrenome:
+          <input 
+            type="text"
+            { ...register('user.lastName')}
+          />
+        </label>
+        { errors && <span>{errors?.user?.lastName?.message}</span> }
+      </div>
+      <div>
+        <label>
+          Email:
+          <input 
+            type="text"
+            { ...register('user.email')}
+          />
+        </label>
+        { errors && <span>{errors?.user?.email?.message}</span> }
+      </div>
+      <div>
+        <label>
+          Senha:
+          <input 
+            type="password"
+            { ...register('user.password')}
+          />
+        </label>
+        { errors && <span>{errors?.user?.password?.message}</span> }
+      </div>
+      <div>
+        <label>
+          Confirme a senha:
+          <input 
+            type="password"
+            { ...register('user.passwordConfirm')}
+          />
+        </label>
+        { errors && <span>{errors?.user?.passwordConfirm?.message}</span> }
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  )
+}
+
+```
+
+<br/>
+
+Outras duas funções que podem ser desestruturadas de <span>useForm</span> são <span>reset</span> e <span>watch</span>.
+
+<br/>
+
+```jsx
+
+const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<UserRegisterForm>({
+    resolver: yupResolver(yupSchema)
+});
+
+```
+
+<br/>
+
+A função <span>reset</span> serve para limpar os campos de inputs após enviar os dados para o backend, ou um campo especifico passando como parâmetro o campo de input desejado, enquanto a função <span>watch</span>  monitora os valores que são digitados, e assim como, o evento sintético <span>onChange</span> a cada caracter digitado o componente é renderizado.
+
+<br/>
+
+Por fim, note que o trecho de código a seguir, 
+
+<br/>
+
+```jsx
+
+<label>
+  NOME_DA_LABEL:
+  <input 
+    type="text"
+    { ...register('NOME_DO_CAMPO')}
+  />
+</label>
+
+```
+
+<br/>
+
+se repete para cada campo de <span>input</span> , portanto podemos criar um componente e refatorar nosso formulário. Para isso, podemos utiliza o <span>useFormContext</span> e o <span>FormProvider</span> para ter acesso a função <span>register</span> dentro do nosso componente.
+
+<br/>
+
+No componente <span>Input</span> podemos desestruturar a função <span>register</span> de <span>useFormContext</span> e receber via <span>props</span> o nome da label e o tipo e o nome do campo de input conforme mostra a seguir:
+
+<br/>
+
+```jsx
+
+import { useFormContext } from 'react-hook-form';
+
+interface InputProps {
+  label: string
+  filed: string
+  type: string
+}
+
+export default function Input(props:InputProps) {
+  const { register } = useFormContext()
+
+  return (
+    <div>
+      <label>
+	        {props.label}
+          <input 
+            type={props.type}
+            { ...register(props.field)}
+          />
+        </label>
+    </div>
+  )
+}
+
+```
+
+<br/>
+
+Porém, para que o componente possa ter acesso a função <span>register</span> precisamos envolver o formulário com o <span>FormProvider</span> e disponibilizar os métodos com mostra a seguir: 
+
+<br/>
+
+```jsx
+
+export default function Form () {
+  const methods = useForm<UserRegisterForm>({
+    resolver: yupResolver(yupSchema)
+  });
+
+  const { reset, watch, handleSubmit, formState: { errors }} = methods
+
+  const submitForm = ({ user }: UserRegisterForm) => {
+    console.log(user)
+    // enviar os dados para o backend
+  };
+
+  return (
+    <FormProvider { ...methods  }> 
+      <form onSubmit={handleSubmit(submitForm)}>
+        <div>
+          <Input 
+            label='Nome:'
+            field='user.name'
+            type='text'
+          />
+          { errors && <span>{errors?.user?.name?.message}</span> }
+        </div>
+        <div>
+          <Input 
+            label='Sobrenome:'
+            filed='user.lastName'
+            type='text'
+          />
+          { errors && <span>{errors?.user?.lastName?.message}</span> }
+        </div>
+        <div>
+          <Input 
+            label='Email:'
+            filed='user.email'
+            type='text'
+          />
+          { errors && <span>{errors?.user?.email?.message}</span> }
+        </div>
+        <div>
+          <Input 
+            label='Senha:'
+            filed='user.password'
+            type='password'
+          />
+          { errors && <span>{errors?.user?.password?.message}</span> }
+        </div>
+        <div>
+          <Input 
+            label='Confirme a senha:'
+            filed='user.passwordConfirm'
+            type='password'
+          />
+          { errors && <span>{errors?.user?.passwordConfirm?.message}</span> }
+        </div>
+        <button type="submit">Enviar</button>
+      </form>
+    </FormProvider>
+  )
+}
+
+```
+
+<br/>
+
+⚠️ Atenção: Um ponto muito importante é desabilitar o botão de "Enviar” enquanto os dados estiverem sendo enviados para o backend, para que não corra o risco do usuário clicar repetidas vezes e enviar múltiplas requisições.
+
+<br/>
+
+E espero que esse post tenha sido util de alguma forma 😊.
+
+<br/>
