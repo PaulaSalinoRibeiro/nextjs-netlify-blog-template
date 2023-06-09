@@ -18,7 +18,7 @@ export default function Profile({path}: Props) {
         Paula Ribeiro
       </p>
       <p className={styles.subtitle}>
-        Software Enginner
+        Frontend Engineer
       </p>
       <p className={styles.description}>
         Entusiasta em aprender e compartilhar conhecimento sobre o mundo da tecnologia
