@@ -1,0 +1,58 @@
+.container {
+  height: 100vh;
+  width: 200px;
+}
+
+.imageProfile {
+  border: 1px solid var(--secondary);
+  border-radius: 50%;
+  width: 118px;
+  height: 118px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: var(--text-title);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: var(--text-title);
+  margin-bottom: 32px;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: regular;
+  font-family: --var(--text-subtitle);
+  width: 200px
+}
+
+@media (width < 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 28px;
+    margin-bottom: 18px;
+    height: auto;
+  }
+
+  .imageProfile{
+    margin: 0 auto;
+  }
+  
+  .title, .subtitle {
+    display: flex;
+    justify-content: center;
+    padding-top: 2px;
+  }
+
+  .description {
+    text-align: center;
+  }
+}
