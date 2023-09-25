@@ -1,0 +1,314 @@
+---
+slug: "git-alem-add-commit-e-push"
+title: "Git: Além do git add, git commit e git push"
+date: "28 de Setembro de 2023"
+subtitle: "Vamos avançar o conhecimento em git com alguns comandos que podem ser bem úteis no seu dia a dia"
+tags: 
+  - git
+---
+
+<br/>
+
+De modo geral o <span>Git</span> é um sistema de versionamento, ou seja, com essa ferramenta é possivel criar diferentes versões de código. Isso é possivel pois, 
+o Git cria um histórico de <span>commits</span>. Em um primerio momento pode paracer um pouco complicado mas, 
+essa ferramenta é sem sombra de dúvidas primordial para o dia-a-dia de um(a) desenvolvedor(a).
+
+<br/>
+
+Ainda vale a pena destacar uma caracteristica que torna o Git muito superior a outras ferramentas de controle de versão, 
+que é o seu sistema distribuido permitindo que várias pessoas em diferentes lugares trabalhe em um mesmo projeto simultaneamente.
+
+<br/>
+
+Todo iniciante em Git começa aprendendo os comandos basicos, <span>git add</span>, <span>git commit</span> e <span>git push</span>, 
+neste post vamos avançar e ampliar nosso conhecimento em Git adicionando outros comando que são bem úteis. 
+
+<br/>
+
+## 1. ENTENDENDO O GIT WORKFLOW
+
+<br/>
+
+Ao adicionar um novo arquivo ao projeto, ex.: readme.md, esse arquivo ainda não possui nenhuma referencia para o Git, portanto, 
+ele está <span>untracked</span> e apenas no nosso <span>working directory</span> como mostra a imagem a seguir:
+
+<br/>
+
+![workflow](/images/git-alem-add-commit-e-push/workflow.png)
+
+<br/>
+
+Porém, quando executamos o comando: 
+
+<br/>
+
+```bash 
+  git add readme.md  
+``` 
+
+<br/>
+
+esse arquivo passa a ter uma referencia para o Git e passa para a <span>staging area</span>.
+
+<br/>
+
+![workflow](/images/git-alem-add-commit-e-push/workflow1.png)
+
+<br/>
+
+Quando executamos o comando:
+
+<br/>
+
+```bash
+git commit -m 'inicia projeto'
+``` 
+
+<br/>
+
+esse arquivo passa para o nosso <span>local repository</span> e o primeiro commit é criado.
+
+<br/>
+
+![workflow](/images/git-alem-add-commit-e-push/workflow2.png)
+
+<br/>
+
+## 2. CORRIGINDO A MENSAGEM DE COMMIT
+
+<br/>
+
+Para corrigir a mensagem de commit basta executar o seguinte comando:
+
+<br/>
+
+```bash
+  git commit --amend
+```
+
+<br/>
+
+Logo em seguida irá abri o editor configurado no Git, no meu caso é o vim, então, basta apertar a tecla "i" para indicar para o editor que será feita uma alteração, 
+corrigir a mensagem de commit e em seguida apertar as teclas ESC + :wq para salvar e sair.
+
+<br/>
+
+![workflow](/images/git-alem-add-commit-e-push/vim-editor.png)
+
+<br/>
+
+Com o comando <span>git log</span> é possivel visualizar que a mensagem foi alterada com sucesso!
+
+<br/>
+
+![workflow](/images/git-alem-add-commit-e-push/amend.png)
+
+<br/>
+
+Caso queria trocar o editor configurado no Git basta utilizar o comando a seguir:
+
+<br/>
+
+```bash
+  git config --global core.editor <editor-de-sua-preferencia>
+```
+
+<br/>
+
+## 3. REMOVENDO DA STAGING AREA
+
+<br/>
+
+Se por acaso adicionamos por engano algum arquivo a <span>staging area</span> para remover basta executar o comando:
+
+<br/>
+
+```bash
+git rm --cached <nome-do-arquivo>
+
+```
+
+<br/>
+
+![reset](/images/git-alem-add-commit-e-push/staged.png)
+
+<br/>
+
+A imagem acima mostra, que tinhamos dois arquivos na staging area (readme.md e index.js). 
+Ao executar os comandos `git rm --cached readme.md` e `git status`, respectivamente, podemos ver que o arquivo `index.js` permaneceu na staging area, 
+enquanto o arquivo `readme.md` foi removido passando para <span>untracked</span>, ou seja, para o <span>working directory</span>.
+
+<br/>
+
+## 4. REMOVENDO UM COMMIT
+
+<br/>
+
+Vamos considerar o seguinte histórico de commits como  mostra a imagem a seguir:
+
+<br/>
+
+![reset](/images/git-alem-add-commit-e-push/reset1.png)
+
+<br/>
+
+Se quisermos remover um commit existem 3 formas.
+A primeira forma é através do comando a seguir:
+
+<br/>
+
+```bash
+  git reset --soft  <hash-do-commit> 
+```
+
+<br/>
+
+![reset](/images/git-alem-add-commit-e-push/reset2.png)
+![reset](/images/git-alem-add-commit-e-push/reset3.png)
+
+<br/>
+
+Note que a hash do comando corresponde ao do commit para onde queremos retornar.
+
+<br/>
+
+Neste caso as alterações que estavam salvas no <span>local repository</span> são apagada mas, permanecem salvas na <span>staging area</span> e no <span>working directory</span> conforme mostra a imagem a seguir:
+
+<br/>
+
+![reset](/images/git-alem-add-commit-e-push/reset4.png)
+
+<br/>
+
+Outra forma de apagar um commit é através do commando: 
+
+<br/>
+
+```bash
+  git reset --mixed  <hash-do-commit> 
+```
+
+<br/>
+
+Nesse caso, as alterações são apagadas tando do <span>local repository</span> quanto da <span>staging area</span> permanecendo salvas apenas no <span>working directory</span>. 
+
+<br/>
+
+E por último o commando:
+
+<br/>
+
+```bash
+  git reset --hard  <hash-do-commit> 
+```
+
+<br/>
+
+Apaga por completo as alterações.
+
+<br/>
+
+## 5. MUDAR DE BRANCH SEM PRECISAR COMMITAR AS ALTERAÇÕES
+
+<br/>
+
+Imagine o cenário em que está trabalhando em uma branch implementando uma nova funcionalidade, mas, surge uma nova tarefa importante e é preciso trocar a branch. 
+Para não comprometer as mudanças feitas podemos armazená-las temporariamente com o comando:
+
+<br/>
+
+```bash
+  git stash 
+```
+
+<br/>
+
+Agora, podemos alterar de branch com segurança. 
+E para reaplicar as mudanças que ficaram temporariamente armazenadas podemos usar o comando:
+
+<br/>
+
+```bash
+  git stash apply
+```
+
+<br/>
+
+## 6. MERGE DE BRANCHS COM REBASE
+
+<br/>
+
+O <span>git rebase</span> é um comando utilizado para criar um histórico de commits linear e sem bifurcações. Isso torna mais fácil de entender o histórico de commits de um projeto. 
+
+<br/>
+
+```bash
+
+git rebase <branch>
+
+```
+
+<br/>
+
+O comando acima faz com que o Git transfira na mesma ordem os commits da branch de trabalho para a ponta da branch de destino. 
+
+<br/>
+
+⚠️ Atenção: Aqui é importante ressaltar que esse comando reescreve o histórico de commits da branch de destino, portanto, não é recomendando utilizar em branchs que são compartilhadas entre o time de desenvolvedores.
+
+<br/>
+
+## 7. VIZUALIZAR ÁRVORE DE COMMITS 
+
+<br/>
+
+Conforme mencionei no inicio desse post o Git cria um histórico de commits e a medida que criamos branchs diferentes uma árvore de commits é formada.
+Para visualizar a <span>árvore de commits</span> podemos utilizar o comando a seguir:
+
+<br/>
+
+```bash
+git log --decorate --oneline --graph --all
+```
+
+<br/>
+
+A imagem a seguir ilustra um exemplo:
+
+<br/>
+
+![arvore-commits](/images/git-alem-add-commit-e-push/arvore-commits.png)
+
+<br/>
+
+## 8. CRIAR ALIAS
+
+<br/>
+
+O Git permite criar atalhos e personalizar os comandos, isso é interessante para ganhar produtividade e evitar erros de digitação.
+Podemos criar um alias para o comando <span>git status</span> conforme mostra o comando a seguir:
+
+<br/>
+
+```bash
+git config --global alias.st status 
+```
+
+<br/>
+
+No comando acima definimos o alias "st", isso significa que ao digitar o comando <span>git st</span> implicitamente o comando <span>git status</span> irá ser executado.
+
+<br/>
+
+## 9. DICAS FINAIS
+
+<br/>
+
+O site <a href="https://git-school.github.io/visualizing-git/" target="_blank">git-school</a> é uma ferramenta que permite explorar o Git, atraves dela é possivel testar os comando e visualizar a árvore de commits a medida que os comandos vão sendo executados. 
+E o <a href="https://cs.fyi/guide/git-cheatsheet" target="_blank">cheatsheet</a> mostra uma série de comandos bem completa vale a pena dá uma conferida.  
+ 
+<br/>
+
+Se gostou do post deixa seu comentário aqui embaixo e compartilha!
+
+<br/>
