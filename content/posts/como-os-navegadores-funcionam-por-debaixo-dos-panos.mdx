@@ -91,3 +91,167 @@ Depois que cada chunk é recebido pelo navegador uma mensagem ACK é enviada par
 Até agora vimos como o navegador realiza o processo de navegação e fetch dos recursos, chegou a hora de iniciar o último passo a rederização da página.
 
 <br/>
+<br/>
+<br/>
+
+## 3. Renderização 🖥️
+
+<br/>
+<br/>
+Antes de detalhar como o navegador exibe na tela do nosso computador os recursos obtidos na etapa anterior, é preciso conhecer seu principal componente, <span>a engine</span>. 
+<br/>
+Existem muitas engines e algumas delas são apresentadas a seguir:
+<br/>
+<br/>
+- Gecko: desenvolvida pela equipe do Mozilla  para o Firefox e escrita em C++, JavaScript e Rust.
+<br/>
+- WebKit: desenvolvido pela Apple para o Safari, escrita em C++.
+<br/>
+- Blink: desenvolvida pelo Google para o Chrome, escrita em C++.
+<br/>
+<br/>
+A principal função da engine é combinar a estrutura HTML, o estilo CSS e descobrir quais são os trechos de código que são interativos.
+<br/>
+<br/>
+Então para exibir a página a engine do navegador inicia o processo de parse do HTML. 
+O parse corresponde ao processo de analise e interpretação da sequencia dos dados, e envolve duas etapas a tokenização e a construção da DOM (Document Object Model). Para ilustrar o parse considere o HTML a seguir: 
+<br/>
+<br/>
+
+![html-exemplo](/images/como-os-navegadores-funcionam-por-debaixo-dos-panos/html-exemplo.png)
+
+<br/>
+<br/>
+Na etapa de tokenização o navegador realiza uma analise léxica separando em tokens que representa elementos HTML, como mostra a seguir:
+<br/>
+<br/>
+- tag de abertura: html <br/>
+- tag de abertura : head <br/>
+- tag de abertura: title <br/>
+- texto da tag title: Meu título <br/>
+- tag de fechamento: title <br/>
+- tag de fechamento: head <br/>
+- tag de abertura: body <br/>
+- tag de abertura: h1 <br/>
+- tag de abertura: h1 <br/>
+- texto da tag h1: Olá Mundo! <br/>
+- tag de fechamento: h1 <br/>
+- tag de fechamento: body <br/>
+- tag de fechamento: html <br/>
+
+<br/>
+Após a criação dos tokens é iniciada a construção da DOM que representa a estrutura hierárquica do documento HTML
+<br/>
+<br/>
+
+```jsx
+
+ - html
+    - head
+      - title
+        - Text: "Meu título"
+    - body
+      - h1
+        - Text: "Olá, mundo!"
+
+```
+<br/>
+
+Neste exemplo, o primeiro nó representa uma tag html que dentro dela possui um outro nó representado pela tag head e dentro desse elemento possui um nó title como o texto "Meu título”. O nó body como o mesmo nível de hieraquia que o nó head representa a tag body que possui um nó representando a tag h1 que contém o texto "Olá mundo!”. 
+<br/>
+O processo de parse ocorre linha por linha do top do arquivo para baixo. Em navegadores antigos quando o parse se deparava com um recurso bloqueante (como uma image, arquivo Javascript, etc,) o processo de parse era interropindo e o navegador enviava uma requisição solicitando o recurso ao servidor para depois retomar o processo, hoje os navegadores possuem <span>pré-carregadores</span> ou <span>pre-loader</span> que realizam uma varredura buscando pelos recursos bloqueantes que são recuperados em segundo plano, a fim de, evitar o bloqueio do parse.
+<br/>
+<br/>
+Depois de concluido o parse do HTML é a vez de realizar o parse do CSS. As regras de estilização da página podem estar contida tanto no próprio arquivo HTML quanto em uma folha de estilo separada. E de modo similar ao parse do HTML, o parse do CSS inicia com a tokenização dando origem aos nós que irão formar a árvore CSSOM (Cascading Style Sheets Object Model) que consistem em uma estrutura de dados independente da DOM.
+<br/>
+Para ilustrar o parse do CSS vamos utilizar o exemplo a seguir:
+
+<br/>
+<br/>
+
+```CSS
+body {
+	font-size: 16px;
+	background-color: black;
+}
+
+h1 {
+	color: white;
+	font-size: 32px;
+}
+
+div {
+	background-color: red;
+}
+
+```
+
+<br/>
+
+Para o CSS acima a CSSOM seria algo como mostra a figura a seguir:
+
+<br/>
+
+![cssom-example](/images/como-os-navegadores-funcionam-por-debaixo-dos-panos/ccsom-example.png)
+
+<br/>
+O esquema acima mostra que o elemento h1 herda a propriedade color com o valor white do body, elemento de maior hierárquia, enquanto a propriedade font-size é sobrescrita alterando seu valor de 16px para 32px, de modo semelhante, o elemento div herda a propriedade font-size do body e sobrescreve as propriedades background-color e color atribuindo novos valores.
+<br/>
+<br/>
+Como podemos ver o navegador começa aplicando a regra mais geral e segue refinando aplicando regras mais especificas seguindo o princípio de cascata de estilos. Em alguns casos o mesmo elemento pode ter diferentes regras de estilização e nesse caso o navegador deve determinar qual regra será aplicada. Para isso é usada uma ordem de especificidade no CSS, como mostra a seguir: 
+<br/>
+<br/>
+CSS Inline > ID > Classe/Atributo/Pseudo-Classe > Elemento/Pseudo-Elemento e permanecendo o empate prevalece a regra que foi aplicada por último.
+<br/>
+<br/>
+As regras CSS são aplicadas da direita para a esqueda, ou seja, caso o navegador encontre a seguinte regra 
+
+<br/>
+
+```CSS 
+div p { 
+  color: red 
+}
+```  
+<br/>
+ele irá buscar por todas as tags p e verificar qual delas tem uma tag div como elemento pai e então aplicar a propriedade color com o valor red.
+<br/>
+<br/>
+Nossa página já possui uma estrutura HTML e o estilo CSS, agora falta a interatividade proveniente do JavaScript. 
+<br/>
+<br/>
+Antes de executar o código JavaScript os navegadores precisam transpilar o código, ou seja, converter o código que utiliza uma sintáxe mais moderna em uma versão de código com uma sintáxe mais antiga. Para realizar a tranpilação o navegador faz o parse do código transformando em uma estrutura AST (Abstract Syntax Tree) como mostra o exemplo a seguir:
+<br/>
+<br/>
+
+```jsx
+const name = "Paula"
+```
+
+<br/>
+
+![AST-tree-example](/images/como-os-navegadores-funcionam-por-debaixo-dos-panos/AST-tree-example.png)
+
+<br/>
+
+Com essa estrutura o navegador é capaz de manipular os nós, substituindo para a versão mais antiga, e após a manipulação dos nós o navegador faz o processo reverso reconstruindo o código. 
+<br/>
+👉🏻 Caso queira explorar a estrutura AST você pode acessar a ferramenta https://astexplorer.net/.
+<br/>
+<br/>
+Com o código na sintaxe aceita pelo navegador ele será executado pela engine JavaScript. As principais engine JavaScript são:
+<br/>
+<br/>
+- V8:  é o motor JavaScript de alta performance utilizado no Google Chrome e no Node.js, escrito em C++ <br/>
+- JavaScriptCore: utilizada em dispositivos macOS como o Apple Safari <br/>
+- Chakra: desenvolvido pela Microsoft e escrito em C++ para o Edge <br/>
+- SpiderMonkey: utilizado pelo Mozilla no Firefox, escrito em C++ e Rust <br/>
+<br/>
+As engines JavaScript de navegadores modernos possui a capacidade de fazer o que é chamado de <span>Just-In-Time (JIT) compilation </span> que consiste no melhor dos mundos entre a compilação e interpretação de código.
+<br/>
+Enquanto o código está sendo interpretado e executado em tempo real um monitor verifica trechos de código que se repetem, esses trechos de código é enviado para a compilação, de modo que, ao se deparar com algum desses trechos ao invés de realizar a sua interpretação o código compilado é extraido.
+<br/>
+<br/>
+ 👉🏻 Para ver mais detalhes sobre JIT acesse o site https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/
+ <br/>
+ <br/>
