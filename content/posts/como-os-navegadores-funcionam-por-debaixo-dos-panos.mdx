@@ -1,0 +1,93 @@
+---
+slug: "como-os-navegadores-funcionam-por-debaixo-dos-panos"
+title: "Como os navegadores funcionam por debaixo dos panos"
+date: "20 de Março de 2024"
+subtitle: "Entender como os navegadores funcionam é crucial pra quem trabalha ou pretende trabalhar com desenvolvimento web."
+tags:
+  - navegadores
+  - frontend
+  - navegação
+  - fetch
+  - renderização
+---
+
+<br/>
+
+Atualmente os principais navegadores são o Google Chrome, Mozilla Firefox, Microsoft Edge e Apple Safari, provavelmente você está usando um deles para acessar essa página. Cada navegador possui suas caracteristicas e recursos, nesse post irei explorar os processos de "**navegação**”, "**fetch de dados**” e "**rederização da página**”.
+<br/>
+Para o navegador exibir uma página na tela do nosso computador, ele precisa ter acesso aos recursos dessa página (HTML, CSS, JavaScript, imagens, videos, etc…) que estão armazenados em algum lugar e é através da navegação que localizamos esses recursos.
+
+<br/>
+<br/>
+<br/>
+
+## 1. A Navegação ⛵️ 
+
+<br/>
+<br/>
+
+Cada computador possui um identificador único chamado IP (Internet Protocol), ao informamos ao navegador que queremos acessar a página “https://exemplo.com”, ele transforma o nome de domínio em um endereço de IP “192.7.2.34”, agora conhecendo o IP é possivel localizar o computador que armazena os recursos da página que queremos acessar.
+A conversão entre o nome de domínio para o endereço de IP é realizada através de consulta ao servidor DNS (Domain Name System). O DNS é muito semelhante a uma lista telefonica que associa um nome a um número de telefone. 
+<br/>
+Essa requisição ao servidor DNS ocorre quando acessamos uma página pela primeira vez, depois disso o IP fica armazenado, e numa próxima vez que for visitar a página o acesso será mais rápido.
+<br/>
+<br/>
+Localizado o computador com os recursos da nossa página o navegador precisa abrir uma conexão através do protocolo TCP (Transmission Control Protocol). O TCP é um padrão de comunicação que permite a troca de dados através da internet, assegurando que os dados sejam entregues na ordem e no destino correto. 
+<br/>
+A conexão é criada a partir de três vias ou handshake: 
+<br/>
+<br/>
+1. o navegador envia um pacote SYN solicitando uma sincronização.
+<br/>
+2. o servidor responde com um pacote SYN-ACK concordando com o processo.
+<br/>
+3. por fim o navegador envia o pacote ACK estabelecendo a conexão.
+<br/>
+<br/>
+Para estabelecer uma conexão segura para a transmissão dos dados, uma outra camada com um protocolo TSL (Transport Security Layer) é aplicado. O TSL é um protocolo que aplica uma criptografia aos dados.
+<br/>
+O protocolo TSL consiste nas seguintes etapas:
+<br/>
+<br/>
+1. o navegador envia uma solicitação de segurança ao servidor.
+<br/>
+2. o servidor responde a solicitação de segurança e envia o certificado SSL ao navegador.
+<br/>
+3. o navegador verifica a autenticidade do certificado SSL e envia para o servidor qual o algoritmos de criptografia e os métodos de autenticação que serão usados.
+<br/>
+4. por fim é estabelecido uma conexão segura.
+<br/>
+<br/>
+Agora que temos uma conexão segura, o navegador irá pegar os recursos necessários para montar a página dando inicio o próximo passo o fetch dos dados.
+<br/>
+
+<br/>
+<br/>
+
+## 2. O Fetch dos dados 🐕
+
+<br/>
+<br/>
+
+Para buscar os recursos da página o navegador envia uma requisição HTTP/GET solicitando inicialmente o HTML da página. O HTTP (Hypertext Transfer Protocol) é um protocolo de comunicação baseado no modelo cliente-servidor (entenda que o cliente é o navegador). Esse modelo consiste em solicitações enviadas pelo navegador para obter um recurso, e em contra partida, o servidor responde a solicitação enviando para o navegador o recurso pedido, caso ele exista.
+<br/>
+Toda solicitação ou requisição HTTP consiste de um cabeçalho (header) e opcionalmente um corpo (body), no cabeçalho contém uma série de informações, mas as principais são o método HTTP (GET, POST, PUT, DELTE, etc…) e a URI (Uniform Resource Identifier) que indica qual o recurso o nevagador está buscando.
+<br/>
+<br/>
+O servidor ao receber a solicitação enviada pelo navegador irá processar a informação e enviar uma resposta HTTP ao navegador. Essa resposta também consiste de um cabeçalho contendo várias informações, sendo a principal o status code (200 OK, 404 Not Found, etc…) que nos informa se o processamento ocorreu com sucesso ou se houve alguma falha. 
+<br/>
+<br/>
+👉🏻 Caso queira ver isso acontecendo basta inspecionar a página e ir na aba "network” ou "rede” e navegar para uma página qualquer.
+<br/>
+<br/>
+O tempo em que a solicitação é disparada pelo navegador até o recebimento dos primeiros pacotes de dados é conhecido por <span>Time to First Byte</span> (TTFB).
+<br/>
+<br/>
+A velocidade de trasmissão desses pacotes de recursos (conhecidos como <span>chunks</span>) é controlado por um <span>algoritimo de cogestionamento</span> que tem como objetivo manter uma estabilidade no fluxo de chunks enviados.
+<br/>
+Depois que cada chunk é recebido pelo navegador uma mensagem ACK é enviada para o servidor, como a conexão entre navegador e servidor é limitada, caso o servidor dispare muitos pacotes de chunks rapidamente eles serão perdidos e o navagador não irá retornar nenhuma messagem ACK e é aqui que o algoritimo de congestionamento entra em ação monitorando esse fluxo de pacotes de chunks e mensagens ACK, afim de, encontrar uma taxa de transmissão ideal criando um fluxo constante.
+<br/>
+<br/>
+Até agora vimos como o navegador realiza o processo de navegação e fetch dos recursos, chegou a hora de iniciar o último passo a rederização da página.
+
+<br/>
