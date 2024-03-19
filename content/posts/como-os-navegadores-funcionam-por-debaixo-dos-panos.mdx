@@ -255,3 +255,21 @@ Enquanto o código está sendo interpretado e executado em tempo real um monitor
  👉🏻 Para ver mais detalhes sobre JIT acesse o site https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/
  <br/>
  <br/>
+ Por fim, o navegador irá combinar a DOM com CSSOM em uma nova árvore <span>(render tree)</span> contendo cada nó visivel da DOM com sua respectiva regra de estilização encontrada na CSSOM.
+ <br/>
+ Com a render tree criada é iniciado a <span>etapa de layout</span>, ou seja, o navegador irá calcular o tamanho e a posição correta dos elementos na tela. 
+ Essa etapa de layout não ocorre uma única vez, mas, sempre que houver alguma alteração nos elementos da DOM, no dimensionamento da tela e etc.
+ <br/>
+ Após o navegador determinar a posição e o tamanho dos elementos inicia a <span>etapa de pintura</span>, e os elementos são desenhando na tela. 
+ Assim como na etapa de layout, a etapa de pintura não ocorre apena uma vez, mas sempre que houver mudança em um elemento como o seu contorno, ou sua cor, visibilidade, e etc.
+<br/>
+<br/>
+Com a exibição da tela em nosso computador concluimos todas as etapas e processos desempenhado pelo navegadores. 
+Ter conhecimento sobre essas etapas é crucial ao desenvolvedor frontend, pois permite otimizar o desempenho das aplicações.
+<br/>
+<br/>
+Espero que tenha gostado do conteúdo! 😊
+<br/>
+Se tiver dúvida ou sugestão deixa aqui embaixo nos comentários 👇🏼
+<br/>
+<br/>
